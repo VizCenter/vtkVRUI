@@ -23,6 +23,10 @@ string(REPLACE "-framework;" "-framework " VRUI_LDFLAGS "${VRUI_LDFLAGS}")
 include_directories(${VRUI_INCLUDE_DIRS})
 add_definitions(${VRUI_CFLAGS_OTHER})
 
+# Find ParaView
+find_package(ParaView REQUIRED)
+include(${PARAVIEW_USE_FILE})
+
 # Find VTK:
 find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})
@@ -53,7 +57,7 @@ set(sources
   vvReader.cpp
 )
 
-add_library(vtkVRUI STATIC ${sources})
+add_library(vtkVRUI SHARED ${sources})
 
 target_link_libraries(vtkVRUI ${VTK_LIBRARIES} "${VRUI_LDFLAGS}")
 
